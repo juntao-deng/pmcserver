@@ -1,8 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="create_run_jar" name="Create Runnable Jar for Project pmcserver with Jar-in-Jar Loader">
-    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
-    <!--ANT 1.7 is required                                        -->
-    <target name="create_run_jar">
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="create_run_jar" name="pmcserver">
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <path id="pmcserver.classpath">
+        <pathelement location="out"/>
+        <pathelement location="lib/slf4j-api-1.5.10.jar"/>
+        <pathelement location="lib/log4j-1.2.14.jar"/>
+        <pathelement location="lib/slf4j-log4j12-1.5.10.jar"/>
+        <pathelement location="lib/httpclient-4.3.1.jar"/>
+        <pathelement location="lib/httpcore-4.3.jar"/>
+        <pathelement location="lib/tracerexport.jar"/>
+        <pathelement location="lib/commons-logging-1.1.1.jar"/>
+        <pathelement location="lib/derby.jar"/>
+        <pathelement location="lib/commons-lang-2.6.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="out"/>
+        <copy includeemptydirs="false" todir="out">
+            <fileset dir="src/share">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="out">
+            <fileset dir="src/server">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="out"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="init" name="build">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="out" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src/share"/>
+            <src path="src/server"/>
+            <classpath refid="pmcserver.classpath"/>
+        </javac>
+    </target>
+	
+	<target name="create_run_jar">
         <jar destfile="bin/pmcserver.jar">
             <manifest>
                 <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
