@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.juniper.jmp.monitor.core.IQueryConstant;
+import net.juniper.jmp.tracer.common.MonitorConstants;
 import net.juniper.jmp.tracer.dumper.info.SqlInfoDump;
 import net.juniper.jmp.tracer.dumper.info.StageInfoBaseDump;
 import net.juniper.jmp.tracer.dumper.info.ThreadInfoDump;
@@ -85,7 +86,7 @@ public class LogPersister {
 	
 	private Connection getConnection(){
 		try{
-			Connection conn = DriverManager.getConnection("jdbc:derby:/var/tmp/monitor/serverdb;create=true");
+			Connection conn = DriverManager.getConnection("jdbc:derby:" + MonitorConstants.SHARE_BASE_DIR + "serverdb;create=true");
 			return conn;
 		}
 		catch(Exception e){
